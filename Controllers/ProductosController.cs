@@ -27,13 +27,13 @@ public class ProductosController : ControllerBase
     
     [HttpGet("lista")]
     [Authorize]
-    public async Task<BaseResponse> Lista(Productos productos)
+    public async Task<BaseResponse> Lista()
     {
         try
         {
-            string consulta = productos.SelectListProd();
-            var rsp = await this.basedatos.GetListBy<dynamic>(consulta);
-            return new DataResponse<dynamic>(false, (int)HttpStatusCode.Created,(""), rsp);
+            string consulta = Productos.SelectListProd();
+            var rsp = await this.basedatos.GetListBy<Productos>(consulta);
+            return new DataResponse<dynamic>(true, (int)HttpStatusCode.Created,(""), rsp);
         }
         catch (Exception ex)
         {
@@ -69,18 +69,18 @@ public class ProductosController : ControllerBase
 
     
 
-    [HttpDelete("baja/id={id}")]
+    [HttpDelete("baja/{id}")]
     [Authorize]
-    public async Task<BaseResponse> Baja([FromQuery] Productos productos, int id)
+    public async Task<BaseResponse> Baja([FromQuery] int id)
     {
         var user = HttpContext.User;
         if (user.IsInRole("admin"))
         {
             try
             {
-                string consulta = productos.DeleteProd(id);
+                string consulta = Productos.DeleteProd(id);
                 var rsp = await this.basedatos.DeleteAsync(consulta);
-                return new BaseResponse(false, (int)HttpStatusCode.Created, ("Producto eliminado con exito"));
+                return new BaseResponse(true, (int)HttpStatusCode.Created, ("Producto eliminado con exito"));
             }catch (Exception ex)
             {
 
@@ -107,7 +107,7 @@ public class ProductosController : ControllerBase
                 {
                     string query = productos.UpdateProd(productos.nombre,productos.precio,productos.id_prod);
                     var rsp = await this.basedatos.UpdateByQuery(query);
-                    return new BaseResponse(false, (int)HttpStatusCode.Created, ("Producto modificado correctamente"));
+                    return new BaseResponse(true, (int)HttpStatusCode.Created, ("Producto modificado correctamente"));
                 }
                 catch (Exception ex)
                 {

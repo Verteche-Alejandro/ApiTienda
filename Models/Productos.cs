@@ -12,7 +12,7 @@ public class Productos
     {
         return string.Format("INSERT INTO productos VALUES('{0}',{1})",this.nombre,this.precio);
     }
-    public string SelectListProd()
+    public static string SelectListProd()
     {
         return string.Format("SELECT * FROM productos");
     }
@@ -21,7 +21,7 @@ public class Productos
         return string.Format("SELECT FROM productos WHERE id_prod = {0}",id);
     }
 
-    public string DeleteProd(int id)
+    public static string DeleteProd(int id)
     {
         return string.Format("DELETE FROM productos WHERE id_prod = {0}", id);
     }
