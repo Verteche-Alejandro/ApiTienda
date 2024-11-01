@@ -43,8 +43,8 @@ public class LoginController: ControllerBase
     {
         var claims = new List<Claim> 
         {
-            new (ClaimTypes.Name, name),
-            new (ClaimTypes.Role, rol)
+            new ("Usuario", name),
+            new ("Rol", rol)
         };
 
         var token = new JwtSecurityToken(
