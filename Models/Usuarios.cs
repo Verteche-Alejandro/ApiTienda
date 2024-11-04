@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ATDapi.Models;
 
-public class Login 
+public class Usuarios 
 {
     public int id_user { get; set; }
     [Required(ErrorMessage ="Pone el nombre papa.")]
@@ -49,7 +49,7 @@ public class Login
                             "ON ppr.id_prm = p.id_prm " +
                             "WHERE ppr.id_rol = {0}",id_rol);
     }
-   public class RolName : Login
+   public class Login : Usuarios
     {
         public string rol = "";
     }

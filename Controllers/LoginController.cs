@@ -10,7 +10,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using ATDapi.Connection;
 using System.Xml.Linq;
-using static ATDapi.Models.Login;
+using static ATDapi.Models.Usuarios;
 
 [ApiController]
 public class LoginController: ControllerBase
@@ -28,7 +28,7 @@ public class LoginController: ControllerBase
     public async Task<IActionResult> Login([FromBody]Login login)
     {
         string consulta = login.LoginUser(login.nombre, login.clave);
-        RolName rsp = await _repo.GetByQuery<RolName>(consulta);
+        var rsp = await _repo.GetByQuery<Login>(consulta);
 
         if(rsp != null && rsp.nombre == login.nombre && rsp.clave == login.clave)
         {
