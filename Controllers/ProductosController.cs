@@ -33,7 +33,7 @@ public class ProductosController : ControllerBase
         {
             string consulta = Productos.SelectListProd();
             var rsp = await this.basedatos.GetListBy<Productos>(consulta);
-            return new DataResponse<dynamic>(true, (int)HttpStatusCode.Created,(""), rsp);
+            return new DataResponse<dynamic>(true, (int)HttpStatusCode.Created,("Todos los Productos: "), data:rsp);
         }
         catch (Exception ex)
         {
@@ -47,8 +47,9 @@ public class ProductosController : ControllerBase
     public async Task<BaseResponse> Alta([FromBody] Productos productos)
     {
         var user = HttpContext.User;
+        var rol = user.Claims.FirstOrDefault(c => c.Type == "Rol");
 
-        if(user.IsInRole("admin"))
+        if(rol != null && rol.Value == ("admin"))
         {
             try
             {
@@ -71,10 +72,11 @@ public class ProductosController : ControllerBase
 
     [HttpDelete("baja/{id}")]
     [Authorize]
-    public async Task<BaseResponse> Baja([FromQuery] int id)
+    public async Task<BaseResponse> Baja(int id)
     {
         var user = HttpContext.User;
-        if (user.IsInRole("admin"))
+        var rol = user.Claims.FirstOrDefault(c => c.Type == "Rol");
+        if (rol != null && rol?.Value == ("admin"))
         {
             try
             {
@@ -95,12 +97,12 @@ public class ProductosController : ControllerBase
 
     [HttpPut("modificar")]
     [Authorize]
-    public async Task<BaseResponse> Modi([FromBody] Productos productos)
+    public async Task<BaseResponse> Modificar([FromBody] Productos productos)
     {
         var user = HttpContext.User;
-        if (user.IsInRole("admin"))
+        var rol = user.Claims.FirstOrDefault(c => c.Type == "Rol");
+        if (rol != null && rol?.Value == ("admin"))
         {
-
             if(productos.id_prod != 0)
             {
                 try
