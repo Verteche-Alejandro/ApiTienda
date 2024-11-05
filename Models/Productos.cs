@@ -7,6 +7,7 @@ public class Productos
     public int id_prod { get; set; }
     public string nombre {  get; set; }
     public decimal precio {  get; set; }
+    public string img_url { get; set; } = "";
 
     public string CreateProd()
     {
