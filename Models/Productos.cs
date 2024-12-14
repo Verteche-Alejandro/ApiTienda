@@ -11,7 +11,7 @@ public class Productos
 
     public string CreateProd()
     {
-        return string.Format("INSERT INTO productos VALUES('{0}',{1})",this.nombre,this.precio);
+        return string.Format("INSERT INTO productos VALUES('{0}',{1},'{2}')",this.nombre,this.precio,this.img_url);
     }
     public static string SelectListProd()
     {

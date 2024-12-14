@@ -51,7 +51,7 @@ public class LoginController: ControllerBase
             issuer: _config["JwtSetting:Issuer"],
             audience: _config["JwtSetting:Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(1),
+            expires: DateTime.UtcNow.AddMinutes(30),
             signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSetting:SecretKey"])),
                 SecurityAlgorithms.HmacSha256)
 
